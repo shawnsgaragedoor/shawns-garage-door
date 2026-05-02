@@ -17,18 +17,18 @@
 <meta property="og:title" content="Shawn's Garage Door · Sioux City, IA">
 <meta property="og:description" content="Professional garage door installation, repair, and same-day service in Sioux City, IA. 25+ years. Licensed & insured. Call (712) 259-8173.">
 <meta property="og:url" content="https://shawnsgaragedoor.com/">
-<meta property="og:image" content="https://shawnsgaragedoor.com/images/walnut-carriage.jpeg">
+<meta property="og:image" content="https://shawnsgaragedoor.com/images/hero-bg.jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Carriage walnut garage door installation by Shawn's Garage Door in Sioux City, IA">
+<meta property="og:image:alt" content="Garage door installation by Shawn's Garage Door in Sioux City, IA">
 <meta property="og:locale" content="en_US">
 
 <!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Shawn's Garage Door · Sioux City, IA">
 <meta name="twitter:description" content="Professional garage door installation, repair, and same-day service in Sioux City, IA. 25+ years. Licensed & insured.">
-<meta name="twitter:image" content="https://shawnsgaragedoor.com/images/walnut-carriage.jpeg">
-<meta name="twitter:image:alt" content="Carriage walnut garage door installation by Shawn's Garage Door in Sioux City, IA">
+<meta name="twitter:image" content="https://shawnsgaragedoor.com/images/hero-bg.jpeg">
+<meta name="twitter:image:alt" content="Garage door installation by Shawn's Garage Door in Sioux City, IA">
 
 <!-- LocalBusiness Schema (Google map pack, rich results) -->
 <script type="application/ld+json">
@@ -37,7 +37,7 @@
   "@type": "LocalBusiness",
   "@id": "https://shawnsgaragedoor.com/#business",
   "name": "Shawn's Garage Door",
-  "image": "https://shawnsgaragedoor.com/images/walnut-carriage.jpeg",
+  "image": "https://shawnsgaragedoor.com/images/hero-bg.jpeg",
   "url": "https://shawnsgaragedoor.com/",
   "telephone": "+1-712-259-8173",
   "email": "shawnmyers985@gmail.com",
@@ -1160,6 +1160,79 @@ body {
   position: relative;
 }
 
+/* ─── DESIGNER PREVIEW GRID ─── */
+.designer-preview {
+  position: relative;
+  z-index: 1;
+}
+.designer-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 24px 0 28px;
+}
+.designer-preview-tile {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--charcoal);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple), border-color 0.2s var(--ease-apple);
+  text-decoration: none;
+  display: block;
+}
+.designer-preview-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s var(--ease-apple);
+}
+.designer-preview-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(200,16,46,0.18);
+  border-color: var(--red);
+}
+.designer-preview-tile:hover img {
+  transform: scale(1.06);
+}
+.designer-preview-tile-label {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 6px 10px;
+  background: rgba(10,10,10,0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 6px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.designer-preview-tile-label .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.designer-preview-tile-label .dot.walnut    { background: #6B4423; }
+.designer-preview-tile-label .dot.navyblue  { background: #1E3A5F; }
+.designer-preview-tile-label .dot.charcoal  { background: #3A3A3A; }
+.designer-preview-tile-label .dot.black     { background: #0A0A0A; border: 1px solid rgba(255,255,255,0.3); }
+
+/* On wider screens, lay out 4 tiles in a single row for impact */
+@media (min-width: 1025px) {
+  .designer-preview-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+}
+
 /* ─── HORIZONTAL SCROLL INDICATOR ─── */
 .scroll-indicator {
   display: flex;
@@ -1456,17 +1529,15 @@ body {
     <div class="red-stripe"></div>
     <div class="hero-image-box">
       <div class="hero-scroll-track">
-        <div class="hero-slide" style="background-image: url('images/walnut-carriage.jpeg');"></div>
-        <div class="hero-slide" style="background-image: url('images/residential1.png');"></div>
         <div class="hero-slide" style="background-image: url('images/hero-bg.jpeg');"></div>
-        <div class="hero-slide" style="background-image: url('images/residential3.png');"></div>
+        <div class="hero-slide" style="background-image: url('images/residential1.png');"></div>
         <div class="hero-slide" style="background-image: url('images/residential2.png');"></div>
+        <div class="hero-slide" style="background-image: url('images/residential3.png');"></div>
         <!-- duplicated for seamless loop -->
-        <div class="hero-slide" style="background-image: url('images/walnut-carriage.jpeg');"></div>
-        <div class="hero-slide" style="background-image: url('images/residential1.png');"></div>
         <div class="hero-slide" style="background-image: url('images/hero-bg.jpeg');"></div>
-        <div class="hero-slide" style="background-image: url('images/residential3.png');"></div>
+        <div class="hero-slide" style="background-image: url('images/residential1.png');"></div>
         <div class="hero-slide" style="background-image: url('images/residential2.png');"></div>
+        <div class="hero-slide" style="background-image: url('images/residential3.png');"></div>
       </div>
     </div>
     <a href="designer.html" class="hero-gallery-cta">
@@ -1519,16 +1590,6 @@ body {
     <img src="images/liftmaster.jpeg" alt="LiftMaster" class="brand-logo-item" loading="lazy">
     <img src="images/chamberlain.png" alt="Chamberlain" class="brand-logo-item" loading="lazy">
   </div>
-</div>
-
-<div class="promo-card" id="promoCard">
-  <span class="promo-badge">New Feature</span>
-  <h2 class="promo-title">Design Your Garage <span class="accent">Online.</span></h2>
-  <p class="promo-desc">Pick a style, choose your color, and see exactly what your new door will look like before you buy. Submit for a free quote.</p>
-  <a href="designer.html" class="btn btn-primary">
-    <svg width="18" height="18" viewBox="0 0 32 32" fill="none"><rect x="3" y="2" width="26" height="6" rx="1" fill="#fff"/><rect x="3" y="11" width="26" height="6" rx="1" fill="#fff" opacity="0.85"/><rect x="3" y="20" width="26" height="6" rx="1" fill="#fff" opacity="0.85"/><rect x="13" y="28" width="6" height="2" rx="1" fill="#fff" opacity="0.85"/></svg>
-    Try the Designer
-  </a>
 </div>
 
 <section class="section" id="services">
@@ -1678,6 +1739,35 @@ body {
     <div class="scroll-dot"></div>
   </div>
 </section>
+
+<!-- DESIGNER APP PROMO — image-rich, post-gallery placement -->
+<div class="promo-card designer-preview" id="promoCard">
+  <span class="promo-badge">Designer App · Free</span>
+  <h2 class="promo-title">See Your House With a New Door <span class="accent">Before You Buy.</span></h2>
+  <p class="promo-desc">Pick a style, choose your color, and preview it instantly. No waiting on quotes — try every combination yourself.</p>
+  <div class="designer-preview-grid">
+    <a href="designer.html" class="designer-preview-tile" aria-label="Preview: Walnut Carriage style">
+      <img src="images/walnut-carriage.jpeg" alt="Walnut carriage style preview" loading="lazy">
+      <div class="designer-preview-tile-label"><span class="dot walnut"></span>Walnut · Carriage</div>
+    </a>
+    <a href="designer.html" class="designer-preview-tile" aria-label="Preview: Navy Blue Modern style">
+      <img src="images/navyblue-modern.jpeg" alt="Navy blue modern style preview" loading="lazy">
+      <div class="designer-preview-tile-label"><span class="dot navyblue"></span>Navy · Modern</div>
+    </a>
+    <a href="designer.html" class="designer-preview-tile" aria-label="Preview: Charcoal French style">
+      <img src="images/charcoal-french.jpeg" alt="Charcoal French style preview" loading="lazy">
+      <div class="designer-preview-tile-label"><span class="dot charcoal"></span>Charcoal · French</div>
+    </a>
+    <a href="designer.html" class="designer-preview-tile" aria-label="Preview: Black Traditional style">
+      <img src="images/black-traditional.jpeg" alt="Black traditional style preview" loading="lazy">
+      <div class="designer-preview-tile-label"><span class="dot black"></span>Black · Traditional</div>
+    </a>
+  </div>
+  <a href="designer.html" class="btn btn-primary">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+    Try the Designer
+  </a>
+</div>
 
 <div class="residential-panel" id="residential">
   <p class="residential-tag">For Homeowners</p>
