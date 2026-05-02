@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='2' width='26' height='6' rx='1' fill='%23C8102E'/%3E%3Crect x='3' y='11' width='26' height='6' rx='1' fill='%23fff'/%3E%3Crect x='3' y='20' width='26' height='6' rx='1' fill='%23fff'/%3E%3Crect x='13' y='28' width='6' height='2' rx='1' fill='%23fff'/%3E%3C/svg%3E">
+<title>Design Your Garage · Shawn's Garage Door · Sioux City</title>
+<meta name="description" content="Design your custom garage door online. Pick from 4 styles and 5 colors, see exactly what it'll look like, and get a free quote from Shawn's Garage Door in Sioux City, IA.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C8102E;
+    --red-dark: #8B0000;
+    --red-bright: #E8192E;
+    --black: #0D0D0D;
+    --charcoal: #1A1A1A;
+    --steel: #2A2A2A;
+    --grey: #888;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 72px;
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--red);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo svg { flex-shrink: 0; }
+  .nav-logo span { color: var(--red); }
+  .nav-back {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--red); }
+
+  /* ─── HEADER ─── */
+  .designer-header {
+    padding: 120px 48px 40px;
+    text-align: center;
+    border-bottom: 1px solid #1f1f1f;
+  }
+  .header-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 14px;
+  }
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+  }
+  .header-title .accent { color: var(--red); }
+  .header-desc {
+    color: #999;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ─── MAIN LAYOUT ─── */
+  .designer {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 0;
+    min-height: calc(100vh - 240px);
+  }
+
+  .preview-wrap {
+    background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+    padding: 60px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #1f1f1f;
+    position: sticky;
+    top: 72px;
+    height: calc(100vh - 72px);
+  }
+  .preview-frame {
+    width: 100%;
+    max-width: 580px;
+    aspect-ratio: 4/3;
+    background: #0a0a0a;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+  }
+  .door-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.25s ease;
+  }
+  .door-photo.fade { opacity: 0; }
+  .preview-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 70%, rgba(0,0,0,0.15) 100%);
+    pointer-events: none;
+  }
+
+  .preview-caption {
+    margin-top: 22px;
+    text-align: center;
+  }
+  .preview-caption-style {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.06em;
+  }
+  .preview-caption-meta {
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }
+
+  .config {
+    background: var(--charcoal);
+    padding: 60px 48px;
+    overflow-y: auto;
+  }
+  .config-section { margin-bottom: 36px; }
+  .config-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .config-label::before {
+    content: '';
+    width: 22px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  .style-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .style-card {
+    background: var(--steel);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 0;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+    text-align: left;
+    overflow: hidden;
+  }
+  .style-card:hover {
+    border-color: rgba(200,16,46,0.4);
+    transform: translateY(-2px);
+  }
+  .style-card.active { border-color: var(--red); }
+  .style-card-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background-size: cover;
+    background-position: center;
+    background-color: #222;
+    transition: background-image 0.2s;
+  }
+  .style-card-body { padding: 10px 12px 12px; }
+  .style-card-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .style-card-desc {
+    color: #999;
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  .color-swatch {
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 8px 6px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+    text-align: center;
+  }
+  .color-swatch:hover { transform: translateY(-2px); }
+  .color-swatch.active { border-color: var(--red); }
+  .swatch-chip {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 6px;
+  }
+  .swatch-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #ccc;
+  }
+  .color-swatch.active .swatch-name { color: var(--white); }
+
+  .quote-section {
+    border-top: 1px solid #2c2c2c;
+    padding-top: 32px;
+    margin-top: 8px;
+  }
+
+  /* Form */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .form-row.full { grid-template-columns: 1fr; }
+  .form-input, .form-textarea {
+    background: var(--steel);
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 12px 14px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--red);
+  }
+  .form-textarea { resize: vertical; min-height: 80px; }
+
+  /* Submit row: form button + smaller Call Now button side by side */
+  .submit-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .submit-btn {
+    background: var(--red);
+    color: var(--white);
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .submit-btn:hover { background: var(--red-bright); transform: translateY(-2px); }
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Smaller Call Now button next to the form submit */
+  .call-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 22px;
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--red);
+    border-radius: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+  .call-btn:hover {
+    background: var(--red);
+    transform: translateY(-2px);
+  }
+  .call-btn-icon { font-size: 1.1rem; }
+
+  .success-msg {
+    display: none;
+    background: rgba(34, 139, 34, 0.15);
+    border: 1px solid #2f8f3f;
+    border-radius: 8px;
+    padding: 18px;
+    margin-top: 16px;
+    text-align: center;
+  }
+  .success-msg.show { display: block; }
+  .success-msg-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: #5fcc6a;
+    margin-bottom: 4px;
+  }
+  .success-msg-desc { color: #aaa; font-size: 0.9rem; }
+
+  @media (max-width: 1024px) {
+    nav { padding: 0 24px; }
+    .designer-header { padding: 100px 24px 30px; }
+    .designer { grid-template-columns: 1fr; }
+    .preview-wrap {
+      position: static;
+      height: auto;
+      padding: 36px 20px;
+      border-right: none;
+      border-bottom: 1px solid #1f1f1f;
+    }
+    .config { padding: 36px 24px; }
+    .color-grid { grid-template-columns: repeat(5, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .form-row { grid-template-columns: 1fr; }
+    .submit-row { grid-template-columns: 1fr; }
+    .color-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="2" width="26" height="6" rx="1" fill="#C8102E"/>
+      <rect x="3" y="11" width="26" height="6" rx="1" fill="#fff"/>
+      <rect x="3" y="20" width="26" height="6" rx="1" fill="#fff"/>
+      <rect x="13" y="28" width="6" height="2" rx="1" fill="#fff"/>
+    </svg>
+    Shawn's<span>.</span>Garage<span>Door</span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to Site</a>
+</nav>
+
+<header class="designer-header">
+  <p class="header-eyebrow">Interactive Tool</p>
+  <h1 class="header-title">Design Your <span class="accent">Garage.</span></h1>
+  <p class="header-desc">Pick a style and color — see exactly what your door will look like — then send it to us for a free quote.</p>
+</header>
+
+<main class="designer">
+
+  <section class="preview-wrap">
+    <div class="preview-frame">
+      <img class="door-photo" id="doorPhoto" src="images/door-modern.jpeg" alt="Garage door preview">
+    </div>
+    <div class="preview-caption">
+      <div class="preview-caption-style" id="captionStyle">Modern · White</div>
+      <div class="preview-caption-meta">Pick any combo of style and color</div>
+    </div>
+  </section>
+
+  <section class="config">
+
+    <div class="config-section">
+      <div class="config-label">Door Style</div>
+      <div class="style-grid" id="styleGrid">
+        <button class="style-card active" data-style="modern">
+          <div class="style-card-img" data-style-img="modern" style="background-image:url('images/door-modern.jpeg')"></div>
+          <div class="style-card-body">
+            <div class="style-card-name">Modern</div>
+            <div class="style-card-desc">Clean horizontal panels</div>
+          </div>
+        </button>
+        <button class="style-card" data-style="carriage">
+          <div class="style-card-img" data-style-img="carriage" style="background-image:url('images/door-carriage.jpeg')"></div>
+          <div class="style-card-body">
+            <div class="style-card-name">Carriage</div>
+            <div class="style-card-desc">Classic barn-style charm</div>
+          </div>
+        </button>
+        <button class="style-card" data-style="traditional">
+          <div class="style-card-img" data-style-img="traditional" style="background-image:url('images/door-traditional.jpeg')"></div>
+          <div class="style-card-body">
+            <div class="style-card-name">Traditional</div>
+            <div class="style-card-desc">Raised-panel timeless look</div>
+          </div>
+        </button>
+        <button class="style-card" data-style="french">
+          <div class="style-card-img" data-style-img="french" style="background-image:url('images/door-french.jpeg')"></div>
+          <div class="style-card-body">
+            <div class="style-card-name">French</div>
+            <div class="style-card-desc">Elegant divided-light panes</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-label">Color</div>
+      <div class="color-grid" id="colorGrid">
+        <button class="color-swatch active" data-color="white" data-name="White"><div class="swatch-chip" style="background:#F5F5F0"></div><div class="swatch-name">White</div></button>
+        <button class="color-swatch" data-color="charcoal" data-name="Charcoal"><div class="swatch-chip" style="background:#2E2E2E"></div><div class="swatch-name">Charcoal</div></button>
+        <button class="color-swatch" data-color="black" data-name="Black"><div class="swatch-chip" style="background:#0F0F0F"></div><div class="swatch-name">Black</div></button>
+        <button class="color-swatch" data-color="navyblue" data-name="Navy Blue"><div class="swatch-chip" style="background:#1B3A5C"></div><div class="swatch-name">Navy</div></button>
+        <button class="color-swatch" data-color="walnut" data-name="Walnut"><div class="swatch-chip" style="background:#5C3A1E"></div><div class="swatch-name">Walnut</div></button>
+      </div>
+    </div>
+
+    <div class="config-section quote-section">
+      <div class="config-label">Get Your Free Quote</div>
+      <form id="quoteForm" action="https://formspree.io/f/mpqkgdkq" method="POST">
+        <input type="hidden" name="_subject" id="formSubject" value="New Garage Design Request">
+        <input type="hidden" name="design_style" id="formStyle" value="modern">
+        <input type="hidden" name="design_color" id="formColor" value="White">
+        <div class="form-row">
+          <input type="text" class="form-input" name="name" placeholder="Full Name" required>
+          <input type="tel" class="form-input" name="phone" placeholder="Phone Number" required>
+        </div>
+        <div class="form-row full">
+          <input type="email" class="form-input" name="email" placeholder="Email Address" required>
+        </div>
+        <div class="form-row full">
+          <input type="text" class="form-input" name="address" placeholder="Street Address (optional)">
+        </div>
+        <div class="form-row full">
+          <textarea class="form-textarea" name="notes" placeholder="Anything else? (door size, timing, special requests…)"></textarea>
+        </div>
+        <div class="submit-row">
+          <button type="submit" class="submit-btn">Send Design + Get Quote</button>
+          <a href="tel:+17122598173" class="call-btn">
+            <span class="call-btn-icon">📞</span>
+            <span class="call-btn-text">Call Now</span>
+          </a>
+        </div>
+        <div class="success-msg" id="successMsg">
+          <div class="success-msg-title">Got it! Talk soon.</div>
+          <div class="success-msg-desc">Your design and contact info are on the way to Shawn. Expect a call within 1 business day.</div>
+        </div>
+      </form>
+    </div>
+
+  </section>
+</main>
+
+<script>
+(function() {
+  // Image filename map: [color][style] => filename
+  // 'white' uses the original door-* files. Others use [color]-[style] format.
+  var imageMap = {
+    white: {
+      modern: 'images/door-modern.jpeg',
+      carriage: 'images/door-carriage.jpeg',
+      traditional: 'images/door-traditional.jpeg',
+      french: 'images/door-french.jpeg'
+    },
+    charcoal: {
+      modern: 'images/charcoal-modern.jpeg',
+      carriage: 'images/charcoal-carriage.jpeg',
+      traditional: 'images/charcoal-traditional.jpeg',
+      french: 'images/charcoal-french.jpeg'
+    },
+    black: {
+      modern: 'images/black-modern.jpeg',
+      carriage: 'images/black-carriage.jpeg',
+      traditional: 'images/black-traditional.jpeg',
+      french: 'images/black-french.jpeg'
+    },
+    navyblue: {
+      modern: 'images/navyblue-modern.jpeg',
+      carriage: 'images/navyblue-carriage.jpeg',
+      traditional: 'images/navyblue-traditional.jpeg',
+      french: 'images/navyblue-french.jpeg'
+    },
+    walnut: {
+      modern: 'images/walnut-modern.jpeg',
+      carriage: 'images/walnut-carriage.jpeg',
+      traditional: 'images/walnut-traditional.jpeg',
+      french: 'images/walnut-french.jpeg'
+    }
+  };
+
+  var state = {
+    style: 'modern',
+    color: 'white',
+    colorName: 'White'
+  };
+
+  var doorPhoto = document.getElementById('doorPhoto');
+  var captionStyle = document.getElementById('captionStyle');
+  var styleNames = {
+    modern: 'Modern',
+    carriage: 'Carriage',
+    traditional: 'Traditional',
+    french: 'French'
+  };
+
+  function getCurrentImage() {
+    return imageMap[state.color][state.style];
+  }
+
+  function updatePreview() {
+    var newSrc = getCurrentImage();
+    if (doorPhoto.src.indexOf(newSrc) === -1) {
+      doorPhoto.classList.add('fade');
+      setTimeout(function() {
+        doorPhoto.src = newSrc;
+        doorPhoto.classList.remove('fade');
+      }, 120);
+    }
+    captionStyle.textContent = styleNames[state.style] + ' · ' + state.colorName;
+  }
+
+  function updateStyleThumbnails() {
+    // Update each style card thumbnail to show the selected color
+    document.querySelectorAll('[data-style-img]').forEach(function(el) {
+      var s = el.dataset.styleImg;
+      el.style.backgroundImage = "url('" + imageMap[state.color][s] + "')";
+    });
+  }
+
+  document.querySelectorAll('.style-card').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.style-card').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      state.style = btn.dataset.style;
+      updatePreview();
+    });
+  });
+
+  document.querySelectorAll('.color-swatch').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.color-swatch').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      state.color = btn.dataset.color;
+      state.colorName = btn.dataset.name;
+      updatePreview();
+      updateStyleThumbnails();
+    });
+  });
+
+  document.getElementById('quoteForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var form = e.target;
+    var submitBtn = form.querySelector('.submit-btn');
+    var originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+
+    // Update hidden fields with current design selections
+    document.getElementById('formStyle').value = styleNames[state.style];
+    document.getElementById('formColor').value = state.colorName;
+    document.getElementById('formSubject').value =
+      'New Garage Design Request — ' + styleNames[state.style] + ' / ' + state.colorName;
+
+    var data = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(response) {
+      if (response.ok) {
+        document.getElementById('successMsg').classList.add('show');
+        form.reset();
+        submitBtn.textContent = 'Sent ✓';
+      } else {
+        response.json().then(function(data) {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          alert('There was a problem sending your design. Please call us at (712) 259-8173 instead.');
+        });
+      }
+    })
+    .catch(function() {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+      alert('There was a problem sending your design. Please call us at (712) 259-8173 instead.');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
