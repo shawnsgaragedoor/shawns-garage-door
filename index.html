@@ -236,7 +236,15 @@ html { scroll-behavior: smooth; background: #000000; }
 
 /* Footer */
 [data-theme="light"] .footer { background: #EDEBE5; border-top-color: rgba(10,10,10,0.08); }
-[data-theme="light"] .footer-bottom { border-top-color: rgba(10,10,10,0.08); }
+[data-theme="light"] .footer-bottom { border-top-color: rgba(10,10,10,0.08); color: rgba(10,10,10,0.55); }
+[data-theme="light"] .footer-col-title { color: rgba(10,10,10,0.5); }
+[data-theme="light"] .footer-links a,
+[data-theme="light"] .footer-links span { color: rgba(10,10,10,0.7); }
+[data-theme="light"] .footer-links a:active { color: #0A0A0A; }
+[data-theme="light"] .footer-brand p { color: rgba(10,10,10,0.6); }
+[data-theme="light"] .footer-brand .logo { color: #0A0A0A; }
+[data-theme="light"] .footer-logo-icon { background-image: url('images/shawns-icon-light-512.png') !important; }
+[data-theme="light"] .footer-logo-wordmark { color: #0A0A0A !important; }
 
 /* Buttons */
 [data-theme="light"] .btn-ghost {
@@ -306,6 +314,7 @@ body {
 }
 [data-theme="light"] .nav-logo-icon-wrap {
   background-image: url('images/shawns-icon-light-512.png');
+  mix-blend-mode: multiply;
 }
 /* hide the img tags — we're using background now */
 .nav-logo-img { display: none !important; }
@@ -2142,8 +2151,8 @@ body {
 <footer class="footer">
   <div class="footer-brand">
     <a href="#" class="logo" style="display:flex;align-items:center;gap:14px;text-decoration:none;margin-bottom:12px;">
-      <div style="width:54px;height:32px;flex-shrink:0;background-image:url('images/shawns-icon-dark-512.png');background-size:86px 86px;background-position:-16px -28px;background-repeat:no-repeat;"></div>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.08em;color:#ffffff;white-space:nowrap;">SHAWN'S GARAGE DOOR</span>
+      <div class="footer-logo-icon" style="width:54px;height:32px;flex-shrink:0;background-image:url('images/shawns-icon-dark-512.png');background-size:86px 86px;background-position:-16px -28px;background-repeat:no-repeat;"></div>
+      <span class="footer-logo-wordmark" style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.08em;color:#ffffff;white-space:nowrap;">SHAWN'S GARAGE DOOR</span>
     </a>
     <p>Professional garage door installation, repair, and maintenance. Licensed, insured, and locally owned since 1997.</p>
   </div>
