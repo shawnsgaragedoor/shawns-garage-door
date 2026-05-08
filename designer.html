@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <!-- 2. Preload the hero image so it's ready the moment the page paints -->
-<link rel="preload" as="image" href="images/door-modern.jpeg">
+<link rel="preload" as="image" href="images/door-modern.webp">
 
 <!-- 3. Load fonts non-blocking — page renders immediately with fallback fonts,
          then swaps in the real ones when ready (display=swap handles the FOUT) -->
@@ -433,7 +433,7 @@
            arrives, preventing layout shift (CLS).
       -->
       <img class="door-photo" id="doorPhoto"
-        src="images/door-modern.jpeg"
+        src="images/door-modern.webp"
         alt="Garage door preview"
         width="580" height="435"
         fetchpriority="high"
@@ -451,28 +451,28 @@
       <div class="config-label">Door Style</div>
       <div class="style-grid" id="styleGrid">
         <button class="style-card active" data-style="modern">
-          <div class="style-card-img" data-style-img="modern" style="background-image:url('images/door-modern.jpeg')"></div>
+          <div class="style-card-img" data-style-img="modern" style="background-image:url('images/door-modern.webp')"></div>
           <div class="style-card-body">
             <div class="style-card-name">Modern</div>
             <div class="style-card-desc">Clean horizontal panels</div>
           </div>
         </button>
         <button class="style-card" data-style="carriage">
-          <div class="style-card-img" data-style-img="carriage" style="background-image:url('images/door-carriage.jpeg')"></div>
+          <div class="style-card-img" data-style-img="carriage" style="background-image:url('images/door-carriage.webp')"></div>
           <div class="style-card-body">
             <div class="style-card-name">Carriage</div>
             <div class="style-card-desc">Classic barn-style charm</div>
           </div>
         </button>
         <button class="style-card" data-style="traditional">
-          <div class="style-card-img" data-style-img="traditional" style="background-image:url('images/door-traditional.jpeg')"></div>
+          <div class="style-card-img" data-style-img="traditional" style="background-image:url('images/door-traditional.webp')"></div>
           <div class="style-card-body">
             <div class="style-card-name">Traditional</div>
             <div class="style-card-desc">Raised-panel timeless look</div>
           </div>
         </button>
         <button class="style-card" data-style="french">
-          <div class="style-card-img" data-style-img="french" style="background-image:url('images/door-french.jpeg')"></div>
+          <div class="style-card-img" data-style-img="french" style="background-image:url('images/door-french.webp')"></div>
           <div class="style-card-body">
             <div class="style-card-name">French</div>
             <div class="style-card-desc">Elegant divided-light panes</div>
@@ -532,34 +532,34 @@
 (function() {
   var imageMap = {
     white: {
-      modern: 'images/door-modern.jpeg',
-      carriage: 'images/door-carriage.jpeg',
-      traditional: 'images/door-traditional.jpeg',
-      french: 'images/door-french.jpeg'
+      modern: 'images/door-modern.webp',
+      carriage: 'images/door-carriage.webp',
+      traditional: 'images/door-traditional.webp',
+      french: 'images/door-french.webp'
     },
     charcoal: {
-      modern: 'images/charcoal-modern.jpeg',
-      carriage: 'images/charcoal-carriage.jpeg',
-      traditional: 'images/charcoal-traditional.jpeg',
-      french: 'images/charcoal-french.jpeg'
+      modern: 'images/charcoal-modern.webp',
+      carriage: 'images/charcoal-carriage.webp',
+      traditional: 'images/charcoal-traditional.webp',
+      french: 'images/charcoal-french.webp'
     },
     black: {
-      modern: 'images/black-modern.jpeg',
-      carriage: 'images/black-carriage.jpeg',
-      traditional: 'images/black-traditional.jpeg',
-      french: 'images/black-french.jpeg'
+      modern: 'images/black-modern.webp',
+      carriage: 'images/black-carriage.webp',
+      traditional: 'images/black-traditional.webp',
+      french: 'images/black-french.webp'
     },
     navyblue: {
-      modern: 'images/navyblue-modern.jpeg',
-      carriage: 'images/navyblue-carriage.jpeg',
-      traditional: 'images/navyblue-traditional.jpeg',
-      french: 'images/navyblue-french.jpeg'
+      modern: 'images/navyblue-modern.webp',
+      carriage: 'images/navyblue-carriage.webp',
+      traditional: 'images/navyblue-traditional.webp',
+      french: 'images/navyblue-french.webp'
     },
     walnut: {
-      modern: 'images/walnut-modern.jpeg',
-      carriage: 'images/walnut-carriage.jpeg',
-      traditional: 'images/walnut-traditional.jpeg',
-      french: 'images/walnut-french.jpeg'
+      modern: 'images/walnut-modern.webp',
+      carriage: 'images/walnut-carriage.webp',
+      traditional: 'images/walnut-traditional.webp',
+      french: 'images/walnut-french.webp'
     }
   };
 
@@ -575,7 +575,7 @@
       Object.values(colorSet).forEach(function(src) { allSrcs.push(src); });
     });
     // Skip the hero — already loaded
-    allSrcs = allSrcs.filter(function(s) { return s !== 'images/door-modern.jpeg'; });
+    allSrcs = allSrcs.filter(function(s) { return s !== 'images/door-modern.webp'; });
 
     // Use requestIdleCallback if available, otherwise just do it after a short delay
     var load = function() {
