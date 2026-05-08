@@ -10,7 +10,24 @@
 <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 <title>Design Your Garage · Shawn's Garage Door · Sioux City</title>
 <meta name="description" content="Design your custom garage door online. Pick from 4 styles and 5 colors, see exactly what it'll look like, and get a free quote from Shawn's Garage Door in Sioux City, IA.">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- 1. Preconnect to Google Fonts servers so the TCP/TLS handshake is done early -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- 2. Preload the hero image so it's ready the moment the page paints -->
+<link rel="preload" as="image" href="images/door-modern.jpeg">
+
+<!-- 3. Load fonts non-blocking — page renders immediately with fallback fonts,
+         then swaps in the real ones when ready (display=swap handles the FOUT) -->
+<link rel="preload" as="style"
+  href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap"
+  onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap">
+</noscript>
+
 <style>
   :root {
     --red: #C8102E;
@@ -120,10 +137,13 @@
     position: sticky;
     top: 72px;
     height: calc(100vh - 72px);
+    /* 4. Promote to its own compositing layer to avoid repaint cost on scroll */
+    will-change: transform;
   }
   .preview-frame {
     width: 100%;
     max-width: 580px;
+    /* 5. Explicit aspect-ratio so the browser reserves space before image loads — no layout shift */
     aspect-ratio: 4/3;
     background: #0a0a0a;
     border-radius: 12px;
@@ -138,6 +158,8 @@
     height: 100%;
     object-fit: cover;
     transition: opacity 0.25s ease;
+    /* 6. Tell the browser this image will animate so it gets its own layer */
+    will-change: opacity;
   }
   .door-photo.fade { opacity: 0; }
   .preview-frame::after {
@@ -294,7 +316,6 @@
   }
   .form-textarea { resize: vertical; min-height: 80px; }
 
-  /* Submit row: form button + smaller Call Now button side by side */
   .submit-row {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -322,7 +343,6 @@
     transform: none;
   }
 
-  /* Smaller Call Now button next to the form submit */
   .call-btn {
     display: inline-flex;
     align-items: center;
@@ -375,6 +395,7 @@
       padding: 36px 20px;
       border-right: none;
       border-bottom: 1px solid #1f1f1f;
+      will-change: auto;
     }
     .config { padding: 36px 24px; }
     .color-grid { grid-template-columns: repeat(5, 1fr); }
@@ -406,7 +427,17 @@
 
   <section class="preview-wrap">
     <div class="preview-frame">
-      <img class="door-photo" id="doorPhoto" src="images/door-modern.jpeg" alt="Garage door preview">
+      <!--
+        7. fetchpriority="high" — browser fetches this before other images.
+           width/height tell the browser the aspect ratio before the image
+           arrives, preventing layout shift (CLS).
+      -->
+      <img class="door-photo" id="doorPhoto"
+        src="images/door-modern.jpeg"
+        alt="Garage door preview"
+        width="580" height="435"
+        fetchpriority="high"
+        decoding="async">
     </div>
     <div class="preview-caption">
       <div class="preview-caption-style" id="captionStyle">Modern · White</div>
@@ -499,8 +530,6 @@
 
 <script>
 (function() {
-  // Image filename map: [color][style] => filename
-  // 'white' uses the original door-* files. Others use [color]-[style] format.
   var imageMap = {
     white: {
       modern: 'images/door-modern.jpeg',
@@ -534,27 +563,38 @@
     }
   };
 
-  var state = {
-    style: 'modern',
-    color: 'white',
-    colorName: 'White'
-  };
-
+  var state = { style: 'modern', color: 'white', colorName: 'White' };
   var doorPhoto = document.getElementById('doorPhoto');
   var captionStyle = document.getElementById('captionStyle');
-  var styleNames = {
-    modern: 'Modern',
-    carriage: 'Carriage',
-    traditional: 'Traditional',
-    french: 'French'
-  };
+  var styleNames = { modern: 'Modern', carriage: 'Carriage', traditional: 'Traditional', french: 'French' };
 
-  function getCurrentImage() {
-    return imageMap[state.color][state.style];
+  // 8. Prefetch adjacent images on idle so switching colors/styles feels instant
+  function prefetchImages() {
+    var allSrcs = [];
+    Object.values(imageMap).forEach(function(colorSet) {
+      Object.values(colorSet).forEach(function(src) { allSrcs.push(src); });
+    });
+    // Skip the hero — already loaded
+    allSrcs = allSrcs.filter(function(s) { return s !== 'images/door-modern.jpeg'; });
+
+    // Use requestIdleCallback if available, otherwise just do it after a short delay
+    var load = function() {
+      allSrcs.forEach(function(src) {
+        var img = new Image();
+        img.src = src;
+      });
+    };
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(load, { timeout: 3000 });
+    } else {
+      setTimeout(load, 1500);
+    }
   }
 
+  prefetchImages();
+
   function updatePreview() {
-    var newSrc = getCurrentImage();
+    var newSrc = imageMap[state.color][state.style];
     if (doorPhoto.src.indexOf(newSrc) === -1) {
       doorPhoto.classList.add('fade');
       setTimeout(function() {
@@ -566,7 +606,6 @@
   }
 
   function updateStyleThumbnails() {
-    // Update each style card thumbnail to show the selected color
     document.querySelectorAll('[data-style-img]').forEach(function(el) {
       var s = el.dataset.styleImg;
       el.style.backgroundImage = "url('" + imageMap[state.color][s] + "')";
@@ -601,17 +640,14 @@
     submitBtn.textContent = 'Sending…';
     submitBtn.disabled = true;
 
-    // Update hidden fields with current design selections
     document.getElementById('formStyle').value = styleNames[state.style];
     document.getElementById('formColor').value = state.colorName;
     document.getElementById('formSubject').value =
       'New Garage Design Request — ' + styleNames[state.style] + ' / ' + state.colorName;
 
-    var data = new FormData(form);
-
     fetch(form.action, {
       method: 'POST',
-      body: data,
+      body: new FormData(form),
       headers: { 'Accept': 'application/json' }
     })
     .then(function(response) {
@@ -620,7 +656,7 @@
         form.reset();
         submitBtn.textContent = 'Sent ✓';
       } else {
-        response.json().then(function(data) {
+        response.json().then(function() {
           submitBtn.textContent = originalText;
           submitBtn.disabled = false;
           alert('There was a problem sending your design. Please call us at (712) 259-8173 instead.');
