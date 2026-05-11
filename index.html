@@ -102,7 +102,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<!-- ═══ PERFORMANCE: Non-blocking font load ═══ -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap"></noscript>
 <script>
   (function() {
     try {
@@ -114,8 +116,7 @@
     } catch (e) {}
   })();
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<!-- ═══ GSAP REMOVED FROM HERE — moved to just before </body> ═══ -->
 <style>
 /* ─── DESIGN TOKENS (DARK — DEFAULT) ─── */
 :root {
@@ -721,7 +722,7 @@ body {
   font-size: 0.75rem; font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 20px;
-  align-self: flex-start; /* prevent stretching in flex column */
+  align-self: flex-start;
   width: fit-content;
 }
 .status-dot {
@@ -770,7 +771,7 @@ body {
   line-height: 1; letter-spacing: 0.02em;
 }
 
-/* ─── REVIEWS SECTION (NEW) ─── */
+/* ─── REVIEWS SECTION ─── */
 .reviews-section {
   padding: 72px 24px;
   background: var(--charcoal);
@@ -1094,7 +1095,6 @@ body {
   width: 200px; height: 200px;
   background: radial-gradient(circle, var(--red-soft) 0%, transparent 70%);
 }
-/* NEW: visual call-out inside promo card */
 .promo-card-inner { display: grid; grid-template-columns: 1fr; gap: 24px; position: relative; }
 @media (min-width: 768px) {
   .promo-card-inner { grid-template-columns: 1fr 1fr; align-items: center; }
@@ -1114,7 +1114,7 @@ body {
 .promo-why-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; }
 .promo-why-list li::before { content: '→'; color: var(--red); font-weight: 700; flex-shrink: 0; margin-top: 0; }
 
-/* ─── LEAD CAPTURE FORM (NEW) ─── */
+/* ─── LEAD CAPTURE FORM ─── */
 .lead-section {
   background: var(--charcoal);
   border-top: 1px solid var(--border);
@@ -2354,68 +2354,76 @@ body {
   }
 
   // ─── GSAP ANIMATIONS ───
-  gsap.registerPlugin(ScrollTrigger);
+  // Wrapped in a load check since scripts are now deferred
+  function initGSAP() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
-  if (!prefersReduced) {
-    gsap.from('#heroTitle', { opacity: 0, y: 30, duration: 0.8, ease: 'power2.out', delay: 0.1 });
-    gsap.from('#heroDesc', { opacity: 0, y: 20, duration: 0.6, ease: 'power2.out', delay: 0.3 });
-    gsap.from('#heroActions', { opacity: 0, y: 20, duration: 0.6, ease: 'power2.out', delay: 0.45 });
+    gsap.registerPlugin(ScrollTrigger);
+
+    if (!prefersReduced) {
+      gsap.from('#heroTitle', { opacity: 0, y: 30, duration: 0.8, ease: 'power2.out', delay: 0.1 });
+      gsap.from('#heroDesc', { opacity: 0, y: 20, duration: 0.6, ease: 'power2.out', delay: 0.3 });
+      gsap.from('#heroActions', { opacity: 0, y: 20, duration: 0.6, ease: 'power2.out', delay: 0.45 });
+    }
+
+    ScrollTrigger.batch('.trust-cell', {
+      onEnter: function(batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out' }); },
+      start: 'top 90%', once: true
+    });
+    gsap.set('.trust-cell', { opacity: 0, y: 15 });
+
+    ScrollTrigger.batch('.service-card', {
+      onEnter: function(batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out' }); },
+      start: 'top 85%', once: true
+    });
+    gsap.set('.service-card', { opacity: 0, y: 25 });
+
+    ScrollTrigger.batch('.product-card', {
+      onEnter: function(batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }); },
+      start: 'top 85%', once: true
+    });
+    gsap.set('.product-card', { opacity: 0, y: 25 });
+
+    ScrollTrigger.batch('.gallery-item', {
+      onEnter: function(batch) { gsap.to(batch, { opacity: 1, scale: 1, duration: 0.5, stagger: 0.06, ease: 'power2.out' }); },
+      start: 'top 85%', once: true
+    });
+    gsap.set('.gallery-item', { opacity: 0, scale: 0.95 });
+
+    ScrollTrigger.batch('.stat-cell', {
+      onEnter: function(batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }); },
+      start: 'top 85%', once: true
+    });
+    gsap.set('.stat-cell', { opacity: 0, y: 20 });
+
+    ScrollTrigger.batch('.review-card', {
+      onEnter: function(batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }); },
+      start: 'top 85%', once: true
+    });
+    gsap.set('.review-card', { opacity: 0, y: 25 });
+
+    ScrollTrigger.create({
+      trigger: '#promoCard',
+      start: 'top 85%', once: true,
+      onEnter: function() { gsap.from('#promoCard', { opacity: 0, y: 30, duration: 0.7, ease: 'power2.out' }); }
+    });
+
+    ScrollTrigger.create({
+      trigger: '#residential',
+      start: 'top 80%', once: true,
+      onEnter: function() { gsap.to('#residential', { opacity: 1, x: 0, duration: 0.7, ease: 'power2.out' }); }
+    });
+    gsap.set('#residential', { opacity: 0, x: -40 });
+
+    ScrollTrigger.create({
+      trigger: '#contact',
+      start: 'top 85%', once: true,
+      onEnter: function() { gsap.from('#contact', { opacity: 0, y: 20, duration: 0.6, ease: 'power2.out' }); }
+    });
   }
 
-  ScrollTrigger.batch('.trust-cell', {
-    onEnter: function(batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out' }); },
-    start: 'top 90%', once: true
-  });
-  gsap.set('.trust-cell', { opacity: 0, y: 15 });
-
-  ScrollTrigger.batch('.service-card', {
-    onEnter: function(batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out' }); },
-    start: 'top 85%', once: true
-  });
-  gsap.set('.service-card', { opacity: 0, y: 25 });
-
-  ScrollTrigger.batch('.product-card', {
-    onEnter: function(batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }); },
-    start: 'top 85%', once: true
-  });
-  gsap.set('.product-card', { opacity: 0, y: 25 });
-
-  ScrollTrigger.batch('.gallery-item', {
-    onEnter: function(batch) { gsap.to(batch, { opacity: 1, scale: 1, duration: 0.5, stagger: 0.06, ease: 'power2.out' }); },
-    start: 'top 85%', once: true
-  });
-  gsap.set('.gallery-item', { opacity: 0, scale: 0.95 });
-
-  ScrollTrigger.batch('.stat-cell', {
-    onEnter: function(batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }); },
-    start: 'top 85%', once: true
-  });
-  gsap.set('.stat-cell', { opacity: 0, y: 20 });
-
-  ScrollTrigger.batch('.review-card', {
-    onEnter: function(batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }); },
-    start: 'top 85%', once: true
-  });
-  gsap.set('.review-card', { opacity: 0, y: 25 });
-
-  ScrollTrigger.create({
-    trigger: '#promoCard',
-    start: 'top 85%', once: true,
-    onEnter: function() { gsap.from('#promoCard', { opacity: 0, y: 30, duration: 0.7, ease: 'power2.out' }); }
-  });
-
-  ScrollTrigger.create({
-    trigger: '#residential',
-    start: 'top 80%', once: true,
-    onEnter: function() { gsap.to('#residential', { opacity: 1, x: 0, duration: 0.7, ease: 'power2.out' }); }
-  });
-  gsap.set('#residential', { opacity: 0, x: -40 });
-
-  ScrollTrigger.create({
-    trigger: '#contact',
-    start: 'top 85%', once: true,
-    onEnter: function() { gsap.from('#contact', { opacity: 0, y: 20, duration: 0.6, ease: 'power2.out' }); }
-  });
+  // Run GSAP init after window load (deferred scripts guaranteed available by then)
+  window.addEventListener('load', initGSAP);
 
   // ─── GALLERY SCROLL INDICATOR ───
   var galleryScroll = document.getElementById('galleryScroll');
@@ -2448,5 +2456,9 @@ body {
 
 })();
 </script>
+
+<!-- ═══ GSAP — loaded after page content, non-blocking ═══ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 </body>
 </html>
