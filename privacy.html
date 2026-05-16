@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Shawn's Garage Door</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface2: #181818;
+      --border: #222222;
+      --red: #cc2200;
+      --red-bright: #e02200;
+      --text: #e8e8e8;
+      --muted: #888888;
+      --accent-blue: #4a7fa5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.95);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--red); }
+
+    .nav-back {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--text); }
+    .nav-back::before { content: '←'; font-size: 0.9rem; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 5rem 2rem 3rem;
+      max-width: 820px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-eyebrow-line {
+      width: 32px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .hero-eyebrow-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CONTENT ── */
+    .content {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: #c0c0c0;
+      margin-bottom: 0.9rem;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    /* data table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0;
+      font-size: 0.88rem;
+    }
+
+    .data-table th {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .data-table td {
+      padding: 0.7rem 0.8rem;
+      border-bottom: 1px solid var(--border);
+      color: #c0c0c0;
+      vertical-align: top;
+    }
+
+    .data-table tr:hover td { background: var(--surface2); }
+
+    .tag {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+      background: rgba(204,34,0,0.15);
+      color: var(--red-bright);
+      border: 1px solid rgba(204,34,0,0.3);
+    }
+
+    /* contact block */
+    .contact-block {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--red);
+      padding: 1.5rem;
+      margin-top: 1.2rem;
+    }
+
+    .contact-block p {
+      margin-bottom: 0.4rem;
+    }
+
+    .contact-block a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    .contact-block a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .footer-logo span { color: var(--red); }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Shawn's <span>Garage</span> Door</a>
+    <a href="index.html" class="nav-back">Back to Home</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Legal</span>
+    </div>
+    <h1>Privacy Policy</h1>
+    <p class="hero-meta">Effective Date: January 1, 2025 &nbsp;·&nbsp; Last Updated: May 2025</p>
+  </div>
+
+  <div class="content">
+
+    <section>
+      <div class="section-number">01 — Overview</div>
+      <h2>Who We Are</h2>
+      <p>Shawn's Garage Door is a locally owned garage door installation, repair, and service company based in Sioux City, Iowa. We operate this website to help customers request quotes, learn about our services, and get in touch with us directly.</p>
+      <p>This Privacy Policy explains what personal information we collect, how we use it, and your rights regarding that information. We do not sell your data — period.</p>
+    </section>
+
+    <section>
+      <div class="section-number">02 — Information We Collect</div>
+      <h2>What We Collect</h2>
+      <p>We only collect information you voluntarily provide through our contact and quote request forms. Here's a breakdown:</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>Why We Collect It</th>
+            <th>Required?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Full Name</td>
+            <td>To address you personally and identify your request</td>
+            <td><span class="tag">Required</span></td>
+          </tr>
+          <tr>
+            <td>Phone Number</td>
+            <td>To call you back and schedule your service</td>
+            <td><span class="tag">Required</span></td>
+          </tr>
+          <tr>
+            <td>Email Address</td>
+            <td>To send quote details or follow-up information</td>
+            <td><span class="tag">Required</span></td>
+          </tr>
+          <tr>
+            <td>Street Address</td>
+            <td>To provide an accurate service estimate</td>
+            <td>Optional</td>
+          </tr>
+          <tr>
+            <td>Service Description / Message</td>
+            <td>To understand your needs before calling</td>
+            <td>Optional</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>We do not collect payment information through this website. All payments are handled directly at time of service.</p>
+    </section>
+
+    <section>
+      <div class="section-number">03 — How We Use It</div>
+      <h2>How Your Information Is Used</h2>
+      <p>Your information is used solely to respond to your inquiry and schedule or provide garage door services. Specifically:</p>
+      <p>— To call or email you back regarding your quote request<br>
+         — To schedule a service appointment at your location<br>
+         — To follow up after a completed job if needed</p>
+      <p>We do not use your information for marketing emails, third-party advertising, or any purpose unrelated to your service request.</p>
+    </section>
+
+    <section>
+      <div class="section-number">04 — Sharing</div>
+      <h2>Who We Share With</h2>
+      <p>We do not sell, rent, or share your personal information with third parties for their own purposes. Your information stays with Shawn's Garage Door.</p>
+      <p>The only exceptions are standard service providers who help us operate (such as our website hosting provider or email platform), and they are contractually prohibited from using your data for anything other than providing us that service.</p>
+      <p>We may disclose information if required by law or to protect the rights and safety of our business or customers.</p>
+    </section>
+
+    <section>
+      <div class="section-number">05 — Data Retention</div>
+      <h2>How Long We Keep It</h2>
+      <p>We retain your contact information for as long as necessary to complete your service request and any reasonable follow-up. If you'd like your information removed from our records, contact us and we will honor that request promptly.</p>
+    </section>
+
+    <section>
+      <div class="section-number">06 — Your Rights</div>
+      <h2>Your Rights</h2>
+      <p>You have the right to:</p>
+      <p>— <strong>Access</strong> the personal information we hold about you<br>
+         — <strong>Correct</strong> any inaccurate information<br>
+         — <strong>Request deletion</strong> of your personal information<br>
+         — <strong>Opt out</strong> of any future communications from us</p>
+      <p>To exercise any of these rights, reach out to us directly using the contact information below.</p>
+    </section>
+
+    <section>
+      <div class="section-number">07 — Contact</div>
+      <h2>Questions?</h2>
+      <p>If you have any questions about this Privacy Policy or how your information is handled, contact us directly:</p>
+
+      <div class="contact-block">
+        <p><strong>Shawn's Garage Door</strong></p>
+        <p>2700 S Royce St, Sioux City, IA 51106</p>
+        <p>Phone: <a href="tel:7122598173">(712) 259-8173</a></p>
+        <p>Email: <a href="mailto:shawnm@shawnsgaragedoors.com">shawnm@shawnsgaragedoors.com</a></p>
+        <p>Hours: Mon–Sat, 7am–5pm</p>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Shawn's <span>Garage</span> Door</div>
+      <div class="footer-copy">© 2025 Shawn's Garage Door · Sioux City, IA · <a href="privacy.html" style="color:inherit;">Privacy Policy</a></div>
+    </div>
+  </footer>
+
+</body>
+</html>
