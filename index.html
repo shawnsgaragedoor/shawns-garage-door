@@ -91,7 +91,7 @@
     "@type": "AggregateRating",
     "ratingValue": "4.7",
     "bestRating": "5",
-    "ratingCount": "208"
+    "ratingCount": "212"
   },
   "sameAs": []
 }
@@ -172,7 +172,7 @@ html, body, .nav, .service-card, .product-card, .stat-cell,
 .mobile-menu, .footer-bottom, .footer-links a, .nav-links a,
 .section, .promo-desc, .residential-desc, .product-desc,
 .service-desc, .product-features li, .residential-list li,
-.review-card, .lead-form, .lead-form input, .lead-form select, .lead-form textarea {
+.review-card, .reviews-scroll, .lead-form, .lead-form input, .lead-form select, .lead-form textarea {
   transition: background-color 0.35s var(--ease-apple),
               border-color 0.35s var(--ease-apple),
               color 0.35s var(--ease-apple),
@@ -834,10 +834,34 @@ body {
   white-space: nowrap;
 }
 .reviews-google-link:hover { background: var(--red); color: white; }
+.reviews-google-g {
+  flex-shrink: 0;
+}
 .reviews-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
+}
+/* Horizontal scroll layout for reviews */
+.reviews-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-padding: 0;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.reviews-scroll::-webkit-scrollbar { display: none; }
+.reviews-scroll .review-card {
+  flex: 0 0 min(320px, 85vw);
+  scroll-snap-align: start;
+}
+.review-google-badge {
+  margin-left: auto;
+  flex-shrink: 0;
+  opacity: 0.85;
 }
 .review-card {
   background: var(--surface);
@@ -1612,7 +1636,7 @@ body {
         4.7★ Google Rating
       </div>
       <div class="hero-proof-divider"></div>
-      <div class="hero-proof-item">208 Reviews</div>
+      <div class="hero-proof-item">212 Reviews</div>
       <div class="hero-proof-divider"></div>
       <div class="hero-proof-item">2,000+ Jobs Done</div>
     </div>
@@ -1716,6 +1740,13 @@ body {
 <section class="reviews-section" id="reviews">
   <div class="reviews-header">
     <div class="reviews-aggregate">
+      <!-- Google "G" logo -->
+      <svg class="reviews-google-g" width="36" height="36" viewBox="0 0 48 48" aria-label="Google" role="img">
+        <path fill="#EA4335" d="M24 9.5c3.6 0 6.4 1.6 8.4 2.9l6.2-6.2C34.9 3.2 29.9 1 24 1 14.8 1 6.9 6.3 3.1 14.1l7.3 5.7C12.2 13.6 17.6 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.9-2.2 5.4-4.7 7l7.2 5.6C43.3 37.2 46.5 31.3 46.5 24.5z"/>
+        <path fill="#FBBC05" d="M10.4 28.5c-.6-1.6-.9-3.3-.9-5s.3-3.4.9-5l-7.3-5.7C1.2 16 0 19.9 0 24s1.2 8 3.1 11.2l7.3-5.7z"/>
+        <path fill="#34A853" d="M24 47c5.9 0 10.9-2 14.5-5.3l-7.2-5.6c-2 1.3-4.5 2.1-7.3 2.1-6.4 0-11.8-4.1-13.6-9.7l-7.3 5.7C6.9 41.7 14.8 47 24 47z"/>
+      </svg>
       <div class="reviews-big-score">4.7</div>
       <div class="reviews-meta">
         <div class="reviews-stars-row">
@@ -1725,21 +1756,23 @@ body {
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <svg viewBox="0 0 24 24" fill="currentColor" opacity="0.4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
-        <div class="reviews-count">208 Google Reviews</div>
+        <div class="reviews-count">212 Google Reviews</div>
         <div class="reviews-source">Verified · Google Maps</div>
       </div>
     </div>
     <a href="https://www.google.com/search?q=Shawn%27s+Garage+Door+Sioux+City" target="_blank" rel="noopener" class="reviews-google-link">See All Reviews ↗</a>
   </div>
 
-  <div class="reviews-grid">
+  <div class="reviews-scroll" id="reviewsScroll">
+
     <div class="review-card">
       <div class="review-header">
-        <div class="review-avatar" style="background:#1a6ab5;">D</div>
+        <div class="review-avatar" style="background:#bf360c;">C</div>
         <div class="review-meta">
-          <div class="review-name">Devin Boyle</div>
-          <div class="review-location">Sioux City, IA · Google Review</div>
+          <div class="review-name">Carol Barker</div>
+          <div class="review-location">May 2026 · Google Review</div>
         </div>
+        <svg class="review-google-badge" width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.6 0 6.4 1.6 8.4 2.9l6.2-6.2C34.9 3.2 29.9 1 24 1 14.8 1 6.9 6.3 3.1 14.1l7.3 5.7C12.2 13.6 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.9-2.2 5.4-4.7 7l7.2 5.6C43.3 37.2 46.5 31.3 46.5 24.5z"/><path fill="#FBBC05" d="M10.4 28.5c-.6-1.6-.9-3.3-.9-5s.3-3.4.9-5l-7.3-5.7C1.2 16 0 19.9 0 24s1.2 8 3.1 11.2l7.3-5.7z"/><path fill="#34A853" d="M24 47c5.9 0 10.9-2 14.5-5.3l-7.2-5.6c-2 1.3-4.5 2.1-7.3 2.1-6.4 0-11.8-4.1-13.6-9.7l-7.3 5.7C6.9 41.7 14.8 47 24 47z"/></svg>
       </div>
       <div class="review-stars">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -1748,17 +1781,18 @@ body {
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
       </div>
-      <p class="review-text">I had an issue with a broken torsion spring and door misaligned. I called Shawn and he was able to come out the same day and get the issues resolved. Prompt, professional, and great price. Would recommend his services to anyone.</p>
-      <span class="review-service-tag">Spring &amp; Alignment</span>
+      <p class="review-text">Shawn was great service even on a Sunday afternoon. Very professional and knowledgeable. Reasonably priced.</p>
+      <span class="review-service-tag">Sunday Service</span>
     </div>
 
     <div class="review-card">
       <div class="review-header">
-        <div class="review-avatar" style="background:#2e7d32;">E</div>
+        <div class="review-avatar" style="background:#1565c0;">M</div>
         <div class="review-meta">
-          <div class="review-name">Emily Myers</div>
-          <div class="review-location">Sioux City, IA · Google Review</div>
+          <div class="review-name">Mark Nielsen</div>
+          <div class="review-location">May 2026 · Local Guide · Google Review</div>
         </div>
+        <svg class="review-google-badge" width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.6 0 6.4 1.6 8.4 2.9l6.2-6.2C34.9 3.2 29.9 1 24 1 14.8 1 6.9 6.3 3.1 14.1l7.3 5.7C12.2 13.6 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.9-2.2 5.4-4.7 7l7.2 5.6C43.3 37.2 46.5 31.3 46.5 24.5z"/><path fill="#FBBC05" d="M10.4 28.5c-.6-1.6-.9-3.3-.9-5s.3-3.4.9-5l-7.3-5.7C1.2 16 0 19.9 0 24s1.2 8 3.1 11.2l7.3-5.7z"/><path fill="#34A853" d="M24 47c5.9 0 10.9-2 14.5-5.3l-7.2-5.6c-2 1.3-4.5 2.1-7.3 2.1-6.4 0-11.8-4.1-13.6-9.7l-7.3 5.7C6.9 41.7 14.8 47 24 47z"/></svg>
       </div>
       <div class="review-stars">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -1767,17 +1801,38 @@ body {
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
       </div>
-      <p class="review-text">Shawn was attentive and worked very quickly. He was at our residence fixing our garage door within the hour that he was called. Good price. Highly recommend!</p>
+      <p class="review-text">Had an old worn out garage door opener that was 30 years old. Shawn came out expediently and installed a new opener and new rollers on the other two garage doors. Personable, friendly, and a smart guy who does excellent work.</p>
+      <span class="review-service-tag">Opener &amp; Rollers</span>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar" style="background:#2e7d32;">B</div>
+        <div class="review-meta">
+          <div class="review-name">Blake Schoenherr</div>
+          <div class="review-location">May 2026 · Google Review</div>
+        </div>
+        <svg class="review-google-badge" width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.6 0 6.4 1.6 8.4 2.9l6.2-6.2C34.9 3.2 29.9 1 24 1 14.8 1 6.9 6.3 3.1 14.1l7.3 5.7C12.2 13.6 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.9-2.2 5.4-4.7 7l7.2 5.6C43.3 37.2 46.5 31.3 46.5 24.5z"/><path fill="#FBBC05" d="M10.4 28.5c-.6-1.6-.9-3.3-.9-5s.3-3.4.9-5l-7.3-5.7C1.2 16 0 19.9 0 24s1.2 8 3.1 11.2l7.3-5.7z"/><path fill="#34A853" d="M24 47c5.9 0 10.9-2 14.5-5.3l-7.2-5.6c-2 1.3-4.5 2.1-7.3 2.1-6.4 0-11.8-4.1-13.6-9.7l-7.3 5.7C6.9 41.7 14.8 47 24 47z"/></svg>
+      </div>
+      <div class="review-stars">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <p class="review-text">I called him on a Sunday and he was over fast. I could absolutely tell he knew what he was talking about. He was in and out and my garage was back running. Definitely my new garage guy!</p>
       <span class="review-service-tag">Same-Day Repair</span>
     </div>
 
     <div class="review-card">
       <div class="review-header">
-        <div class="review-avatar" style="background:#7b1fa2;">C</div>
+        <div class="review-avatar" style="background:#6a1fa2;">S</div>
         <div class="review-meta">
-          <div class="review-name">Chance Eaton</div>
-          <div class="review-location">Sioux City, IA · Local Guide · Google Review</div>
+          <div class="review-name">Stacy Sturdevant</div>
+          <div class="review-location">May 2026 · Google Review</div>
         </div>
+        <svg class="review-google-badge" width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.6 0 6.4 1.6 8.4 2.9l6.2-6.2C34.9 3.2 29.9 1 24 1 14.8 1 6.9 6.3 3.1 14.1l7.3 5.7C12.2 13.6 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.9-2.2 5.4-4.7 7l7.2 5.6C43.3 37.2 46.5 31.3 46.5 24.5z"/><path fill="#FBBC05" d="M10.4 28.5c-.6-1.6-.9-3.3-.9-5s.3-3.4.9-5l-7.3-5.7C1.2 16 0 19.9 0 24s1.2 8 3.1 11.2l7.3-5.7z"/><path fill="#34A853" d="M24 47c5.9 0 10.9-2 14.5-5.3l-7.2-5.6c-2 1.3-4.5 2.1-7.3 2.1-6.4 0-11.8-4.1-13.6-9.7l-7.3 5.7C6.9 41.7 14.8 47 24 47z"/></svg>
       </div>
       <div class="review-stars">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -1786,9 +1841,37 @@ body {
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
       </div>
-      <p class="review-text">As a local real estate professional with Eaton Realty Group, I'm always looking for reliable, trustworthy vendors I can confidently recommend to my clients — and Shawn's Garage Door Company absolutely delivers. From quick response times to quality work, they're the real deal.</p>
-      <span class="review-service-tag">Realtor Recommended</span>
+      <p class="review-text">Shawn did an excellent job installing a new door and opener for us. On both occasions, he was prompt and courteous.</p>
+      <span class="review-service-tag">New Installation</span>
     </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar" style="background:#00695c;">P</div>
+        <div class="review-meta">
+          <div class="review-name">Paul Bilsten</div>
+          <div class="review-location">May 2026 · Google Review</div>
+        </div>
+        <svg class="review-google-badge" width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.6 0 6.4 1.6 8.4 2.9l6.2-6.2C34.9 3.2 29.9 1 24 1 14.8 1 6.9 6.3 3.1 14.1l7.3 5.7C12.2 13.6 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.9-2.2 5.4-4.7 7l7.2 5.6C43.3 37.2 46.5 31.3 46.5 24.5z"/><path fill="#FBBC05" d="M10.4 28.5c-.6-1.6-.9-3.3-.9-5s.3-3.4.9-5l-7.3-5.7C1.2 16 0 19.9 0 24s1.2 8 3.1 11.2l7.3-5.7z"/><path fill="#34A853" d="M24 47c5.9 0 10.9-2 14.5-5.3l-7.2-5.6c-2 1.3-4.5 2.1-7.3 2.1-6.4 0-11.8-4.1-13.6-9.7l-7.3 5.7C6.9 41.7 14.8 47 24 47z"/></svg>
+      </div>
+      <div class="review-stars">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <p class="review-text">Excellent service. Very happy with Shawn's work and it was great that he was available on a Saturday.</p>
+      <span class="review-service-tag">Weekend Service</span>
+    </div>
+
+  </div>
+  <div class="scroll-indicator" id="reviewDots">
+    <div class="scroll-dot active"></div>
+    <div class="scroll-dot"></div>
+    <div class="scroll-dot"></div>
+    <div class="scroll-dot"></div>
+    <div class="scroll-dot"></div>
   </div>
 </section>
 
@@ -2202,7 +2285,6 @@ body {
   <div class="footer-bottom">
     <span>© 2026 Shawn's Garage Door. All rights reserved.</span>
     <span>Licensed &amp; Insured · Serving Sioux City &amp; Surrounding Areas Since 1997</span>
-    <span><a href="privacy.html" style="color:rgba(255,255,255,0.5);text-decoration:underline;font-size:0.72rem;letter-spacing:0.05em;">Privacy Policy</a></span>
   </div>
 </footer>
 
@@ -2437,6 +2519,20 @@ body {
       var itemWidth = firstItem.offsetWidth + 12;
       var index = Math.round(scrollLeft / itemWidth);
       dots.forEach(function(d, i) { d.classList.toggle('active', i === index); });
+    }, { passive: true });
+  }
+
+  // ─── REVIEW SCROLL INDICATOR ───
+  var reviewsScroll = document.getElementById('reviewsScroll');
+  var reviewDots = document.querySelectorAll('#reviewDots .scroll-dot');
+  if (reviewsScroll && reviewDots.length) {
+    reviewsScroll.addEventListener('scroll', function() {
+      var scrollLeft = reviewsScroll.scrollLeft;
+      var firstCard = reviewsScroll.querySelector('.review-card');
+      if (!firstCard) return;
+      var cardWidth = firstCard.offsetWidth + 12;
+      var index = Math.round(scrollLeft / cardWidth);
+      reviewDots.forEach(function(d, i) { d.classList.toggle('active', i === index); });
     }, { passive: true });
   }
 
